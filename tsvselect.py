@@ -30,11 +30,13 @@ def pow(a, b): return a**b
 def exists(a): return int(bool(a))
 def andf(a, b): return a and b
 def orf(a, b): return a or b
+def notf(a) : return int(not bool(a))
 def eq(a, b): return int(a == b)
 def gt(a, b): return int(a > b)
 def lt(a, b): return int(a < b)
 def gte(a, b): return int(a >= b)
 def lte(a, b): return int(a <= b)
+def neq(a, b): return int(a != b)
 class RPNExpr:
     ops_bin = {
         '*' : mul,
@@ -50,9 +52,11 @@ class RPNExpr:
         '>' : gt,
         '>=' : gte,
         '<' : lt,
-        '<=' : lte}
+        '<=' : lte,
+        '!=' : neq}
     ops_una = {
-        '?' : exists}
+        '?' : exists,
+        '!' : notf}
     esc_seqs = {
         '\\\\' : '\\',
         '\\*' : '*',
