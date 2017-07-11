@@ -87,7 +87,7 @@ class RPNExpr:
                 n1 = stack.pop(-1)
                 stack.append(self.ops_bin[tok](n1, n2))
             elif tok in self.ops_una:
-                stack.append(self.ops_bin[tok](stack.pop(-1)))
+                stack.append(self.ops_una[tok](stack.pop(-1)))
             elif tok in self.esc_seqs:
                 stack.append(self.esc_seqs[tok])
             elif tok[0] == '#':
