@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/python
 help_str = """Usage: tsvselect data.tsv rule1 rule2 ... > intersect.tsv
 Rule format:
     [min,max];#_wanted;rpn,math,rule
@@ -80,10 +80,7 @@ def apply_rule(data, rule):
 
     key = RPNExpr(r[2])
 
-    try:
-        return sorted(data, key=key, reverse=reverse)[:limit]
-    except:
-        raise RuntimeError('Invalid rule')
+    return sorted(data, key=key, reverse=reverse)[:limit]
 
 def intersect(sets):
     res = []
@@ -112,8 +109,7 @@ def main():
             sets.append(apply_rule(data, rule))
         except Exception as ex:
             sys.stderr.write('On rule #{}:\n'.format(num+1))
-            sys.stderr.write('{}\n'.format(str(ex)))
-            return -1
+            raise
     # output intersect
     write_tsv(intersect(sets), sys.stdout)
     return 0
