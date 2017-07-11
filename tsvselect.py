@@ -65,9 +65,14 @@ class RPNExpr:
                 n2 = stack.pop(-1)
                 n1 = stack.pop(-1)
                 stack.append(self.ops_bin[tok](n1, n2))
+            elif tok in self.ops_una:
+                stack.append(self.ops_bin[tok](stack.pop(-1)))
             elif tok[0] == '#':
                 # column
-                stack.append(float(row[int(tok[1:])-1]))
+                if int(tok[1:]) < len(row):
+                    stack.append(float(row[int(tok[1:])-1]))
+                else:
+                    stack.append('')
             else:
                 try:
                     # try number
