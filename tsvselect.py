@@ -27,13 +27,32 @@ def add(a, b): return a+b
 def sub(a, b): return a-b
 def div(a, b): return a/b
 def pow(a, b): return a**b
+def exists(a): return int(bool(a))
+def andf(a, b): return a and b
+def orf(a, b): return a or b
+def eq(a, b): return int(a == b)
+def gt(a, b): return int(a > b)
+def lt(a, b): return int(a < b)
+def gte(a, b): return int(a >= b)
+def lte(a, b): return int(a <= b)
 class RPNExpr:
     ops_bin = {
         '*' : mul,
         '+' : add,
         '-' : sub,
         '/' : div,
-        '^' : pow}
+        '^' : pow,
+        '&' : andf,
+        'and' : andf,
+        '|' : orf,
+        'or' : orf,
+        '=' : eq,
+        '>' : gt,
+        '>=' : gte,
+        '<' : lt,
+        '<=' : lte}
+    ops_una = {
+        '?' : exists}
 
     def __init__(self, expr):
         self.toks = expr.split(',')
@@ -50,8 +69,12 @@ class RPNExpr:
                 # column
                 stack.append(float(row[int(tok[1:])-1]))
             else:
-                # assume number
-                stack.append(float(tok))
+                try:
+                    # try number
+                    stack.append(float(tok))
+                except:
+                    # keep as string
+                    stack.append(tok)
 
         return stack[-1]
                 
