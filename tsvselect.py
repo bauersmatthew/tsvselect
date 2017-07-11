@@ -92,7 +92,7 @@ class RPNExpr:
                 stack.append(self.esc_seqs[tok])
             elif tok[0] == '#':
                 # column
-                if int(tok[1:]) < len(row):
+                if int(tok[1:])-1 < len(row):
                     try:
                         stack.append(float(row[int(tok[1:])-1]))
                     except:
